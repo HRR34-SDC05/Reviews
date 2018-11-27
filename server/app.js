@@ -5,10 +5,10 @@ const bodyParser = require('body-parser');
 const compression = require('compression');
 
 const db = new Pool({
-  database: 'ebdb',
-  user: 'postgress',
-  password: 'limit~~Impending~~DEMOCRAT~~boney~~Corset~~DRY763',
-  host: 'aa15assqptfmqma.cbw37qud69pj.us-west-2.rds.amazonaws.com',
+  database: 'seany',
+  user: 'postgres',
+  password: 'HRR34',
+  host: 'localhost',
   port: '5432',
 });
 

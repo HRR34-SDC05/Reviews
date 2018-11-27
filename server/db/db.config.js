@@ -1,11 +1,10 @@
 const { Pool } = require('pg');
 const faker = require('faker');
 
-/* global TEST_ENV */
 const db =
   typeof TEST_ENV !== 'undefined'
-    ? new Pool({ database: 'trailblazers_reviews' })
-    : new Pool({ database: 'ebdb' });
+    ? new Pool({ database: 'seany' })
+    : new Pool({ database: 'seany' });
 
 const createQueryStr = `
   CREATE TABLE reviews (
@@ -21,43 +20,43 @@ const insertQueryText = `
        $1,       $2,      $3,      $4,   $5,    $6,        $7,       $8,     $9
   )`;
 
-const bellcurveNumber = (min, max) => {
-  let result = 0;
-  for (let i = 0; i < 3; i++) {
-    result += faker.random.number({ max, min });
-  }
-  result = Math.round(result / 3);
+// const bellcurveNumber = (min, max) => {
+//   let result = 0;
+//   for (let i = 0; i < 3; i++) {
+//     result += faker.random.number({ max, min });
+//   }
+//   result = Math.round(result / 3);
 
-  return result;
-};
+//   return result;
+// };
 
-const insertPlaceholderData = (client, res) => {
-  for (let i = 1; i < 100; i++) {
-    if (Math.random() < 0.95 && i < 100) {
-      i--;
-    }
-    const insertQueryValues = [
-      i,
-      bellcurveNumber(1, 5),
-      faker.internet.userName(),
-      faker.lorem.sentence(),
-      faker.lorem.paragraph(5),
-      faker.random.boolean(),
-      faker.random.number(47),
-      faker.random.number(22),
-      faker.date.past(5),
-    ];
+// const insertPlaceholderData = (client, res) => {
+//   // for (let i = 1; i < 100; i++) {
+//   //   if (Math.random() < 0.95 && i < 100) {
+//   //     i--;
+//   //   }
+//     const insertQueryValues = [
+//       i,
+//       bellcurveNumber(1, 5),
+//       faker.internet.userName(),
+//       faker.lorem.sentence(),
+//       faker.lorem.paragraph(5),
+//       faker.random.boolean(),
+//       faker.random.number(47),
+//       faker.random.number(22),
+//       faker.date.past(5),
+//     ];
 
-    client.query(insertQueryText, insertQueryValues, () => {
-      if (i === 99) {
-        client.query('COMMIT', () => {
-          client.end();
-          res(true);
-        });
-      }
-    });
-  }
-};
+//     client.query(insertQueryText, insertQueryValues, () => {
+//       // if (i === 99) {
+//         client.query('COMMIT', () => {
+//           client.end();
+//           res(true);
+//         });
+//       // }
+//     });
+//   // }
+// };
 
 const initReviewsTable = () => {
   const setupTablePromise = new Promise(res => {
